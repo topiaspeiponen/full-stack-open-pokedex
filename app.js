@@ -12,6 +12,7 @@ app.get('/health', (req, res) => {
 
 app.get('/version', (req, res) => {
   res.send('new version? 1')
+})
 
 app.listen(PORT, () => {
   /* eslint-disable no-console */
