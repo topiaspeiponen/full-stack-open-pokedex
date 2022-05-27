@@ -17,4 +17,4 @@ jobs:
           date
       - name: Print Dir Contents
         run: |
-          ls
+          ls -l
