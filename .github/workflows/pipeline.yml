@@ -22,6 +22,7 @@ jobs:
           healthcheck: "http://aqueous-anchorage-99787.herokuapp.com/health"
           checkstring: "ok"
           delay: 10
+          rollbackonhealthcheckfailed: true
       - name: npm install 
         run: npm install   
       - name: lint
