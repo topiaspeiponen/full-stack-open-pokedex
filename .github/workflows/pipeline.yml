@@ -19,6 +19,8 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "aqueous-anchorage-99787"
           heroku_email: "topias.peiponen@gmail.com"
+          healthcheck: "https://aqueous-anchorage-99787.herokuapp.com/health"
+          checkstring: "ok"
       - name: npm install 
         run: npm install   
       - name: lint
