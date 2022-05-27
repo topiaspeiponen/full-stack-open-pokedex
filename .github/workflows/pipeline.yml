@@ -11,10 +11,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v2
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           node-version: '16'
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "aqueous-anchorage-99787"
+          heroku_email: "topias.peiponen@gmail.com"
       - name: npm install 
-        run: npm install  
+        run: npm install   
       - name: lint
         run: npm run eslint
       - name: build
@@ -27,10 +32,3 @@ jobs:
           command: npm run test:e2e
           start: npm run start-prod
           wait-on: http://localhost:5000
-      - name: deploy to heroku
-        uses: actions/checkout@v2
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "aqueous-anchorage-99787"
-          heroku_email: "topias.peiponen@gmail.com"
