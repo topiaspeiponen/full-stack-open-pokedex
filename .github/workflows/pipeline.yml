@@ -23,7 +23,7 @@ jobs:
         run: echo "$COMMITS"
       - name: commit messages
         env:
-          COMMIT_MESSAGES: ${{ github.event.commits.*.message.includes('#skip') }}
+          COMMIT_MESSAGES: ${{ contains(github.event.commits.*.message, '#skip') }}
         run: echo "$COMMIT_MESSAGES"
   simple_deployment_pipeline:
     runs-on: ubuntu-20.04
