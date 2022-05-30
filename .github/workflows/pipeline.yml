@@ -55,6 +55,7 @@ jobs:
           checkstring: "ok"
           delay: 10
           rollbackonhealthcheckfailed: true
+      - name: deploying success
         uses: rjstone/discord-webhook-notify@v1
         if: success()
         with:
@@ -66,13 +67,13 @@ jobs:
       - name: lint
         run: npm run eslint
       - name: build
-        uses: rjstone/discord-webhook-notify@v1
+        run: npm run build
+      - uses: rjstone/discord-webhook-notify@v1
         if: failure()
         with:
             severity: error
             details: Build Failed! Commit ${{ toJson(github.event.commits.*.url) }} by ${{ toJson(github.event.commits.*.committer.username) }}
             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-        run: npm run build
       - name: test
         run: npm run test
       - name: e2e tests
