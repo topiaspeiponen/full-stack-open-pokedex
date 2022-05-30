@@ -17,6 +17,10 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
+      - name: steps
+        env:
+          STEPS: ${{ toJson(steps) }}
+        run: echo "$STEPS"
       - name: commits
         env:
           COMMITS: ${{ toJson(github.event.commits) }}
@@ -41,7 +45,6 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - uses: rjstone/discord-webhook-notify@v1
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
@@ -56,7 +59,9 @@ jobs:
           checkstring: "ok"
           delay: 10
           rollbackonhealthcheckfailed: true
-        if: ${{ success() }}
+      - name: deploying success
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ !failure() }}
         with:
             severity: info
             details: New version to https://aqueous-anchorage-99787.herokuapp.com/ deployed succesfully by ${{ toJson(github.event.commits[0].committer.username) }}
@@ -67,6 +72,7 @@ jobs:
         run: npm run eslint
       - name: build
         run: npm run build
+      - uses: rjstone/discord-webhook-notify@v1
         if: failure()
         with:
             severity: error
