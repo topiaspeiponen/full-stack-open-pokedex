@@ -33,7 +33,7 @@ const App = () => {
           const next = pokemonList.find(({ id }) => id === pokemonId + 1)
           return <PokemonPage pokemonList={pokemonList} previous={previous} next={next} />
         }} />
-      </Switch
+      </Switch>
     </Router>
   )
 }

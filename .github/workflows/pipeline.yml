@@ -66,7 +66,7 @@ jobs:
         with:
             severity: info
             text: Deployment of Pokedex succesful
-            details: New version to https://aqueous-anchorage-99787.herokuapp.com/ deployed succesfully by ${{ toJson(github.event.commits[0].committer.username) }}
+            details: New version to https://aqueous-anchorage-99787.herokuapp.com/ deployed succesfully by ${{ github.event.commits[0].committer.username }}
             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: npm install 
         run: npm install   
@@ -80,7 +80,7 @@ jobs:
         with:
             severity: error
             text: Build failed
-            details: Commit ${{ toJson(github.event.commits[0].url) }} by ${{ toJson(github.event.commits[0].committer.username) }}
+            details: Commit ${{ github.event.commits[0].url }} by ${{ github.event.commits[0].committer.username }}
             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: test
         run: npm run test

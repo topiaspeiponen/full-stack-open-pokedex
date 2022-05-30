@@ -1,4 +1,5 @@
 const express = require('express')
+const faulty = require('express-faulty')
 const app = express()
 
 // Heroku dynamically sets a port
@@ -6,7 +7,13 @@ const PORT = process.env.PORT || 5000
 
 app.use(express.static('dist'))
 
-app.get('/health', (req, res) => {
+const faultMiddleware = faulty({
+  enabled: true,
+  faultType: 'DOWN',
+  afterRequestCount: 2
+})
+
+app.get('/health', faultMiddleware, (req, res) => {
   res.send('ok')
 })
 
