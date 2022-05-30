@@ -76,7 +76,7 @@ jobs:
         if: failure()
         with:
             severity: error
-            details: Build Failed! Commit ${{ toJson(github.event.commits.*.url) }} by ${{ toJson(github.event.commits[0].committer.username) }}
+            details: Build Failed! Commit ${{ toJson(github.event.commits[0].url) }} by ${{ toJson(github.event.commits[0].committer.username) }}
             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: test
         run: npm run test
