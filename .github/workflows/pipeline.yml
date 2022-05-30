@@ -33,6 +33,10 @@ jobs:
         env:
           COMMIT_MESSAGES_JOINED_CONTAIN: ${{ contains(join(github.event.commits.*.message), '#skip') }}
         run: echo "$COMMIT_MESSAGES_JOINED_CONTAIN"
+      - name: commit messages joined and contains and is push
+        env:
+          COMMIT_MESSAGES_JOINED_CONTAIN_PUSH: ${{ github.event_name == 'push' }}
+        run: echo "$COMMIT_MESSAGES_JOINED_CONTAIN_PUSH"
   simple_deployment_pipeline:
     runs-on: ubuntu-20.04
     steps:
