@@ -65,6 +65,7 @@ jobs:
         if: ${{ steps.deploy.outcome == 'success' }}
         with:
             severity: info
+            text: Deployment of Pokedex succesful
             details: New version to https://aqueous-anchorage-99787.herokuapp.com/ deployed succesfully by ${{ toJson(github.event.commits[0].committer.username) }}
             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: npm install 
@@ -72,12 +73,14 @@ jobs:
       - name: lint
         run: npm run eslint
       - name: build
+        id: build
         run: npm run build
       - uses: rjstone/discord-webhook-notify@v1
-        if: failure()
+        if: ${{ steps.build.outcome == 'failure' }}
         with:
             severity: error
-            details: Build Failed! Commit ${{ toJson(github.event.commits[0].url) }} by ${{ toJson(github.event.commits[0].committer.username) }}
+            text: Build failed
+            details: Commit ${{ toJson(github.event.commits[0].url) }} by ${{ toJson(github.event.commits[0].committer.username) }}
             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: test
         run: npm run test
