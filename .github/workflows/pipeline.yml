@@ -25,6 +25,14 @@ jobs:
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         run: echo "$COMMIT_MESSAGES"
+      - name: commit messages joined
+        env:
+          COMMIT_MESSAGES_JOINED: ${{ join(github.event.commits.*.message) }}
+        run: echo "$COMMIT_MESSAGES_JOINED"
+      - name: commit messages joined and contains
+        env:
+          COMMIT_MESSAGES_JOINED_CONTAIN: ${{ contains(join(github.event.commits.*.message), '#skip') }}
+        run: echo "$COMMIT_MESSAGES_JOINED_CONTAIN"
   simple_deployment_pipeline:
     runs-on: ubuntu-20.04
     steps:
