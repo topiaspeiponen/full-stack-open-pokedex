@@ -61,7 +61,7 @@ jobs:
           rollbackonhealthcheckfailed: true
       - name: deploying success
         uses: rjstone/discord-webhook-notify@v1
-        if: ${{ !failure() }}
+        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') && success() }}
         with:
             severity: info
             details: New version to https://aqueous-anchorage-99787.herokuapp.com/ deployed succesfully by ${{ toJson(github.event.commits[0].committer.username) }}
