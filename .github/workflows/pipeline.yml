@@ -50,6 +50,7 @@ jobs:
           node-version: '16'
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12
+        id: deploy
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') }}
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -61,7 +62,7 @@ jobs:
           rollbackonhealthcheckfailed: true
       - name: deploying success
         uses: rjstone/discord-webhook-notify@v1
-        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') && success() }}
+        if: ${{ steps.deploy.outcome == 'success' }}
         with:
             severity: info
             details: New version to https://aqueous-anchorage-99787.herokuapp.com/ deployed succesfully by ${{ toJson(github.event.commits[0].committer.username) }}
