@@ -7,13 +7,13 @@ const PORT = process.env.PORT || 5000
 
 app.use(express.static('dist'))
 
-const faultMiddleware = faulty({
+/*const faultMiddleware = faulty({
   enabled: true,
   faultType: 'DOWN',
   afterRequestCount: 1
-})
+})*/
 
-app.get('/health', faultMiddleware, (req, res) => {
+app.get('/health', (req, res) => {
   res.send('ok')
 })
 
