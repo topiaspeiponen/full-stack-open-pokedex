@@ -16,5 +16,5 @@ app.get('/version', (req, res) => {
 
 app.listen(PORT, () => {
   /* eslint-disable no-console */
-  console.log('server indeeddyylyyafaaaa stasdftarated on portda 5000')
+  console.log('server indeeddyylyyaafaaaa stasdftarated on portda 5000')
 })
