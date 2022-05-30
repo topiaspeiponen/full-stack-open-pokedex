@@ -10,7 +10,7 @@ app.use(express.static('dist'))
 const faultMiddleware = faulty({
   enabled: true,
   faultType: 'DOWN',
-  afterRequestCount: 2
+  afterRequestCount: 0
 })
 
 app.get('/health', faultMiddleware, (req, res) => {
